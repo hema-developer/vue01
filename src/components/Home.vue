@@ -7,13 +7,17 @@
       <th scope="col">ID</th>
       <th scope="col">Name</th>
       <th scope="col">Age</th>
+      <th scope="col">Action</th>
     </tr>
     </thead>
     <tbody>
-    <tr v-for="user in users" :key="user.id">
-      <th scope="row">{{ user.id }}</th>
+    <tr v-for="(user, index) in users" :key="index">
+      <th scope="row">{{ index +1 }}</th>
       <td>{{ user.name }}</td>
       <td>{{ user.age }}</td>
+      <td><button v-on:click="deleteUser(user.id)">
+        Delete
+      </button></td>
     </tr>
     </tbody>
   </table>
@@ -23,35 +27,10 @@
 <script>
 export default {
   name: "HOME",
-  data (){
-    return {
-      users :[
-          {
-            id: 1,
-            name: "Ibrahim Samir",
-            age: 35
-          },
-          {
-            id: 2,
-            name: "Ahmed samir",
-            age: 28
-          },
-          {
-            id: 3,
-            name: "Yasin Ibrahim",
-            age: 10
-          },
-        {
-          id: 4,
-          name: "Mohammed",
-          age: 4
-        },
-        {
-          id: 5,
-          name: "Ysaaer",
-          age: 20
-        }
-      ]
+  props:['users'],
+  methods:{
+    deleteUser(id){
+      this.$emit('delete',{id})
     }
   }
 }
